@@ -1,0 +1,26 @@
+-- 1. Créer une procédure pour ajouter un client
+DELIMITER $$
+
+CREATE PROCEDURE ajouter_client(
+    IN p_nom VARCHAR(50),
+    IN p_prenom VARCHAR(50),
+    IN p_email VARCHAR(100),
+    IN p_ville VARCHAR(50)
+)
+BEGIN
+    INSERT INTO clients (nom, prenom, email, ville)
+    VALUES (p_nom, p_prenom, p_email, p_ville);
+    
+    SELECT 'Client ajouté avec succès' AS message;
+END$$
+
+DELIMITER ;
+
+-- 2. Exécuter la procédure
+CALL ajouter_client('Leroy', 'Paul', 'paul@email.com', 'Lyon');
+
+-- 3. Vérifier
+SELECT * FROM clients WHERE nom = 'Leroy';
+
+-- 4. Voir les procédures
+SHOW PROCEDURE STATUS WHERE Db = 'boutique';
