@@ -1,0 +1,97 @@
+-- 1. Création de la base
+CREATE DATABASE gestion_ecole CHARACTER SET utf8mb4;
+USE gestion_ecole;
+
+-- 2. Table élèves
+CREATE TABLE eleves (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    date_naissance DATE,
+    classe_id INT,
+    date_inscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_nom (nom),
+    INDEX idx_classe (classe_id)
+);
+
+-- 3. Table classes
+CREATE TABLE classes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(50) NOT NULL UNIQUE,
+    niveau VARCHAR(20),
+    professeur_principal VARCHAR(100)
+);
+
+-- 4. Table matières
+CREATE TABLE matieres (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(100) NOT NULL,
+    coefficient INT DEFAULT 1
+);
+
+-- 5. Table notes
+CREATE TABLE notes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    eleve_id INT NOT NULL,
+    matiere_id INT NOT NULL,
+    note DECIMAL(4,2) CHECK (note BETWEEN 0 AND 20),
+    date_note DATE DEFAULT (CURRENT_DATE),
+    commentaire TEXT,
+    FOREIGN KEY (eleve_id) REFERENCES eleves(id),
+    FOREIGN KEY (matiere_id) REFERENCES matieres(id),
+    INDEX idx_eleve (eleve_id),
+    INDEX idx_matiere (matiere_id)
+);
+
+-- 6. Insertion de données cohérentes
+INSERT INTO classes (nom, niveau) VALUES 
+('6ème A', '6ème'),
+('5ème B', '5ème'),
+('4ème A', '4ème');
+
+INSERT INTO eleves (nom, prenom, date_naissance, classe_id) VALUES
+('Dupont', 'Jean', '2012-05-15', 1),
+('Martin', 'Sophie', '2011-08-22', 2),
+('Bernard', 'Pierre', '2010-11-30', 3);
+
+INSERT INTO matieres (nom, coefficient) VALUES
+('Mathématiques', 3),
+('Français', 2),
+('Histoire-Géo', 1);
+
+INSERT INTO notes (eleve_id, matiere_id, note) VALUES
+(1, 1, 15.5),
+(1, 2, 12.0),
+(2, 1, 18.0),
+(3, 3, 14.5);
+
+-- 7. Requêtes pratiques
+-- Moyenne par élève
+SELECT 
+    e.nom,
+    e.prenom,
+    ROUND(AVG(n.note), 2) AS moyenne_generale
+FROM eleves e
+JOIN notes n ON e.id = n.eleve_id
+GROUP BY e.id
+ORDER BY moyenne_generale DESC;
+
+-- Moyenne par classe
+SELECT 
+    c.nom AS classe,
+    ROUND(AVG(n.note), 2) AS moyenne_classe
+FROM classes c
+JOIN eleves e ON c.id = e.classe_id
+JOIN notes n ON e.id = n.eleve_id
+GROUP BY c.id;
+
+-- Meilleur élève par matière
+SELECT 
+    m.nom AS matiere,
+    e.nom,
+    e.prenom,
+    MAX(n.note) AS meilleure_note
+FROM matieres m
+JOIN notes n ON m.id = n.matiere_id
+JOIN eleves e ON n.eleve_id = e.id
+GROUP BY m.id;
