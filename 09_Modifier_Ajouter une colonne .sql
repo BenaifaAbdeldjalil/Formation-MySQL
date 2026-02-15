@@ -65,4 +65,3 @@ tu peux supprimer les tables puis les recréer.
 -- DROP TABLE commandes;
 -- DROP TABLE produits;
 -- DROP TABLE clients;
-
