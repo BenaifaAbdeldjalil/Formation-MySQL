@@ -42,7 +42,6 @@ FROM clients;
 -- CONCAT() assemble plusieurs textes
 
 
-
 -- =====================================================
 -- 2️⃣ FONCTIONS DE NOMBRE
 -- =====================================================
@@ -96,22 +95,53 @@ SELECT MAX(prix) AS prix_maximum
 FROM produits;
 -- MAX() retourne la plus grande valeur
 
-
-
 -- =====================================================
 -- 3️⃣ FONCTIONS DE DATE
 -- =====================================================
+/* 
+1️⃣ DATE
+Format : YYYY-MM-DD
+Stocke uniquement la date (année, mois, jour)
+Exemple : 2026-02-22
+📌 Utilisé pour : date de naissance, date de commande, etc.
+
+2️⃣ TIME
+Format : HH:MM:SS
+Stocke uniquement l’heure
+Exemple : 14:35:20
+📌 Utilisé pour : durée, heure précise d’un événement.
+
+3️⃣ DATETIME
+Format : YYYY-MM-DD HH:MM:SS
+Combine date + heure
+Exemple : 2026-02-22 14:35:20
+📌 Valeur fixe (ne change pas selon le fuseau horaire).
+
+4️⃣ TIMESTAMP
+Format : YYYY-MM-DD HH:MM:SS
+Stocke date + heure
+🔥 Se met automatiquement à jour si configuré
+Dépend du fuseau horaire du serveur
+*/
 
 -- Date et heure actuelles
 SELECT NOW();
--- NOW() retourne date + heure actuelle
+-- NOW() retourne la date et l'heure actuelles
+
+-- Date actuelle seulement
+SELECT CURDATE();
+-- CURDATE() retourne la date actuelle
+
+-- Heure actuelle seulement
+SELECT CURTIME();
+-- CURTIME() retourne l'heure actuelle
 
 -- Ajouter 7 jours à la date de commande
 SELECT 
     date_commande,
     DATE_ADD(date_commande, INTERVAL 7 DAY) AS livraison_prevue
 FROM commandes;
--- DATE_ADD() ajoute un intervalle
+-- DATE_ADD() ajoute un intervalle de temps
 
 -- Soustraire 1 mois
 SELECT 
@@ -120,17 +150,41 @@ SELECT
 FROM commandes;
 -- DATE_SUB() enlève un intervalle
 
+-- Extraire l'année
+SELECT 
+    YEAR(date_commande) AS annee
+FROM commandes;
+-- YEAR() retourne l'année
+
 -- Extraire le mois
 SELECT 
     MONTH(date_commande) AS mois
 FROM commandes;
--- MONTH() retourne le mois
+-- MONTH() retourne le mois (1-12)
+
+-- Extraire le nom du mois
+SELECT 
+    MONTHNAME(date_commande) AS nom_mois
+FROM commandes;
+-- MONTHNAME() retourne le nom du mois
+
+-- Extraire le jour
+SELECT 
+    DAY(date_commande) AS jour
+FROM commandes;
+-- DAY() retourne le jour du mois
 
 -- Extraire le jour de la semaine
 SELECT 
     DAYNAME(date_commande) AS jour_semaine
 FROM commandes;
 -- DAYNAME() retourne le nom du jour
+
+-- Différence entre deux dates
+SELECT 
+    DATEDIFF(NOW(), date_commande) AS jours_ecoules
+FROM commandes;
+-- DATEDIFF() retourne la différence en jours
 
 -- Compter les commandes par année
 SELECT 
@@ -140,8 +194,6 @@ FROM commandes
 GROUP BY YEAR(date_commande)
 ORDER BY annee;
 -- GROUP BY année
-
-
 
 -- =====================================================
 -- 4️⃣ EXEMPLE COMPLET (TEXTE + NOMBRE + DATE)
