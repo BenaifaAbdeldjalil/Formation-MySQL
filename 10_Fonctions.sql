@@ -6,10 +6,17 @@
 -- 1️⃣ FONCTIONS DE TEXTE
 -- =====================================================
 
+-- Mettre les prénoms en maj
+SELECT upper(prenom) AS prenom_maj
+FROM clients;
+-- upper() transforme le texte en maj
+
+
 -- Mettre les prénoms en minuscule
 SELECT LOWER(prenom) AS prenom_minuscule
 FROM clients;
 -- LOWER() transforme le texte en minuscule
+
 
 -- Supprimer les espaces au début et à la fin
 SELECT TRIM(nom) AS nom_sans_espace
@@ -17,7 +24,7 @@ FROM clients;
 -- TRIM() enlève les espaces inutiles
 
 -- Extraire les 3 premières lettres du nom
-SELECT SUBSTRING(nom, 1, 3) AS debut_nom
+SELECT SUBSTRING(nom, 1, 4) AS debut_nom
 FROM clients;
 -- SUBSTRING(texte, position, longueur)
 
@@ -28,6 +35,9 @@ FROM clients;
 
 -- Concaténer nom + prénom
 SELECT CONCAT(nom, ' ', prenom) AS nom_complet
+FROM clients;
+
+SELECT CONCAT(nom, ' - ', prenom) AS nom_complet
 FROM clients;
 -- CONCAT() assemble plusieurs textes
 
