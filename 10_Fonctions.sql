@@ -50,26 +50,51 @@ FROM clients;
 -- Arrondir vers le haut
 SELECT CEIL(prix) AS prix_superieur
 FROM produits;
--- CEIL() arrondit au nombre supérieur
+-- CEIL() arrondit au nombre entier supérieur
 
 -- Arrondir vers le bas
 SELECT FLOOR(prix) AS prix_inferieur
 FROM produits;
--- FLOOR() arrondit au nombre inférieur
+-- FLOOR() arrondit au nombre entier inférieur
+
+-- Arrondir à 2 décimales
+SELECT ROUND(prix, 2) AS prix_arrondi
+FROM produits;
+-- ROUND(nombre, decimales)
 
 -- Valeur absolue
 SELECT ABS(-25) AS valeur_absolue;
--- ABS() enlève le signe négatif
+-- ABS() retourne la valeur positive
 
--- Puissance (prix au carré)
-SELECT nom, POWER(prix, 2) AS prix_carre
+-- Tronquer sans arrondir
+SELECT TRUNCATE(prix, 1) AS prix_tronque
 FROM produits;
--- POWER(nombre, puissance)
+-- TRUNCATE(nombre, decimales)
 
 -- Compter le nombre total de commandes
 SELECT COUNT(*) AS total_commandes
 FROM commandes;
--- COUNT() compte les lignes
+-- COUNT() compte le nombre de lignes
+
+-- Calculer la somme totale
+SELECT SUM(prix) AS total_prix
+FROM produits;
+-- SUM() additionne les valeurs
+
+-- Calculer la moyenne
+SELECT AVG(prix) AS moyenne_prix
+FROM produits;
+-- AVG() calcule la moyenne
+
+-- Trouver le prix minimum
+SELECT MIN(prix) AS prix_minimum
+FROM produits;
+-- MIN() retourne la plus petite valeur
+
+-- Trouver le prix maximum
+SELECT MAX(prix) AS prix_maximum
+FROM produits;
+-- MAX() retourne la plus grande valeur
 
 
 
