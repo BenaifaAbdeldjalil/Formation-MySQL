@@ -5,17 +5,16 @@
 -- =====================================================
 -- 1️⃣ FONCTIONS DE TEXTE
 -- =====================================================
-
--- Mettre les prénoms en maj
-SELECT upper(prenom) AS prenom_maj
+-- Mettre les prénoms en majuscules
+SELECT UPPER(prenom) AS prenom_maj
 FROM clients;
--- upper() transforme le texte en maj
+-- UPPER() transforme le texte en majuscules
 
 
--- Mettre les prénoms en minuscule
+-- Mettre les prénoms en minuscules
 SELECT LOWER(prenom) AS prenom_minuscule
 FROM clients;
--- LOWER() transforme le texte en minuscule
+-- LOWER() transforme le texte en minuscules
 
 
 -- Supprimer les espaces au début et à la fin
@@ -23,24 +22,59 @@ SELECT TRIM(nom) AS nom_sans_espace
 FROM clients;
 -- TRIM() enlève les espaces inutiles
 
+
+-- Supprimer les espaces à gauche uniquement
+SELECT LTRIM(nom) AS nom_sans_espace_gauche
+FROM clients;
+-- LTRIM() enlève les espaces au début
+
+
+-- Supprimer les espaces à droite uniquement
+SELECT RTRIM(nom) AS nom_sans_espace_droite
+FROM clients;
+-- RTRIM() enlève les espaces à la fin
+
+
 -- Extraire les 3 premières lettres du nom
-SELECT SUBSTRING(nom, 1, 4) AS debut_nom
+SELECT SUBSTRING(nom, 1, 3) AS debut_nom
 FROM clients;
 -- SUBSTRING(texte, position, longueur)
+
+
+-- Compter le nombre de caractères
+SELECT LENGTH(nom) AS longueur_nom
+FROM clients;
+-- LENGTH() retourne la taille du texte
+
 
 -- Remplacer "Paris" par "Lyon"
 SELECT REPLACE(ville, 'Paris', 'Lyon') AS nouvelle_ville
 FROM clients;
 -- REPLACE(texte, ancien, nouveau)
 
+
 -- Concaténer nom + prénom
 SELECT CONCAT(nom, ' ', prenom) AS nom_complet
 FROM clients;
-
-SELECT CONCAT(nom, ' - ', prenom) AS nom_complet
-FROM clients;
 -- CONCAT() assemble plusieurs textes
 
+
+-- Ajouter un séparateur automatique
+SELECT CONCAT_WS(' - ', nom, prenom) AS nom_complet
+FROM clients;
+-- CONCAT_WS(separateur, texte1, texte2, ...)
+
+
+-- Trouver la position d’un texte
+SELECT INSTR(ville, 'a') AS position_lettre
+FROM clients;
+-- INSTR() retourne la position d’un caractère
+
+
+-- Inverser le texte
+SELECT REVERSE(nom) AS nom_inverse
+FROM clients;
+-- REVERSE() inverse le texte
 
 -- =====================================================
 -- 2️⃣ FONCTIONS DE NOMBRE
