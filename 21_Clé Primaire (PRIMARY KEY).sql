@@ -13,6 +13,14 @@ CREATE TABLE employes (
 -- 3. Ajouter après création
 ALTER TABLE clients ADD PRIMARY KEY (id);
 
+-- 2. Déclaration
+CREATE TABLE employes (
+    id INT PRIMARY KEY AUTO_INCREMENT,  -- Clé primaire
+    nom VARCHAR(50),
+    email VARCHAR(100),
+    PRIMARY KEY (id)
+);
+
 -- 4. Clé primaire composite (2 colonnes)
 CREATE TABLE commandes_details (
     commande_id INT,
