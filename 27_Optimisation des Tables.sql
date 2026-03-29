@@ -12,3 +12,9 @@ CHECK TABLE clients;
 
 -- 5. Convertir un moteur de table
 ALTER TABLE clients ENGINE = InnoDB;
+
+/*   Exemple : convertir `clients` en InnoDB pour bénéficier :
+   - des transactions,
+   - du verrouillage au niveau ligne,
+   - d’une meilleure intégrité des données.
+*/
