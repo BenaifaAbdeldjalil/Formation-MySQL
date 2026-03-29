@@ -70,5 +70,5 @@ limit 5;
 -- ✅ POUR LA MAINTENANCE :
 -- 1. Documenter la structure de la base
 -- 2. Garder un fichier de création (schema.sql)
--- 3. Versionner la base avec Git
+-- 3. Versionner la base
 -- 4. Monitorer les performances régulièrement
