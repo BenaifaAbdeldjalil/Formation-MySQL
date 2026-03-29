@@ -36,6 +36,7 @@ FROM produits;
 SELECT 
     nom,
     categorie,
+    prix,
     ROW_NUMBER() OVER (PARTITION BY categorie ORDER BY prix DESC) AS numero
 FROM produits;
 -- PARTITION BY categorie → redémarre le compteur par catégorie
@@ -56,6 +57,15 @@ JOIN produits p ON c.produit_id = p.id;
 -- SUM() OVER() calcule le total sans GROUP BY
 -- Chaque ligne garde son détail
 
+
+SELECT 
+    c.produit_id,
+    p.nom,
+    c.quantite,
+    SUM(c.quantite) AS total_par_produit
+FROM commandes c
+JOIN produits p ON c.produit_id = p.id
+group by     c.produit_id,p.nom,c.quantite;
 
 -- =====================================================
 -- 5️⃣ AVG() OVER() : Prix moyen par catégorie
@@ -131,4 +141,3 @@ SELECT
     LEAD(quantite) OVER (ORDER BY date_commande) AS quantite_suivante
 FROM commandes;
 -- LEAD() permet de voir la ligne suivante
-
